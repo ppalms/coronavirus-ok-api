@@ -1,4 +1,4 @@
-import * as scraper from './scrapeResult';
+import * as scraper from './scrapeResults';
 import * as persist from './persistResult';
 
 export async function main() {
