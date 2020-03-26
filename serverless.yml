@@ -62,7 +62,7 @@ functions:
     handler: listResultsByDate.main
     events:
       - http:
-          path: listResults/:date
+          path: listResults/{date}
           method: get
           cors: true
 
