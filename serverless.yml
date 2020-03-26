@@ -36,7 +36,7 @@ provider:
 
 functions:
   # Defines an HTTP API endpoint that calls the main function in persistResult.js
-  # - path: url path is /coronavirusTestResults
+  # - path: url path is /persistResult
   # - method: POST request
   # - cors: enabled CORS (Cross-Origin Resource Sharing) for browser cross
   #     domain api call
@@ -45,16 +45,24 @@ functions:
     handler: persistResult.main
     events:
       - http:
-          path: coronavirusTestResults
+          path: persistResult
           method: post
           cors: true
           # authorizer: aws_iam
 
-  scrapeResult:
-    handler: scrapeResult.main
+  listResults:
+    handler: listResults.main
+    events:
+      - http:
+          path: listResults
+          method: get
+          cors: true
+
+  scrapeResults:
+    handler: scrapeResults.main
     events:
        - http:
-          path: scrapeTestResults
+          path: scrapeResults
           method: get
           cors: true
 

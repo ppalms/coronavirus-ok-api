@@ -2,10 +2,10 @@ import * as scraper from './scrapeResult';
 import * as persist from './persistResult';
 
 export async function main() {
-    const results = await scraper.main();
+  const results = await scraper.main();
 
-    for (const result of results) {
-        const event = { body: JSON.stringify(result) };
-        persist.main(event);
-    }
+  for (const result of results) {
+    const event = { body: JSON.stringify(result) };
+    persist.main(event);
+  }
 }
