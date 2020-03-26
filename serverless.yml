@@ -45,29 +45,39 @@ functions:
     handler: persistResult.main
     events:
       - http:
-          path: persistResult
-          method: post
-          cors: true
-          # authorizer: aws_iam
+        path: persistResult
+        method: post
+        cors: true
+        # authorizer: aws_iam
 
   listResults:
     handler: listResults.main
     events:
       - http:
-          path: listResults
-          method: get
-          cors: true
+        path: listResults
+        method: get
+        cors: true
+
+  listResultsByDate:
+    handler: listResultsByDate.main
+    events:
+      - http:
+        path: listResults/:date
+        method: get
+        cors: true
 
   scrapeResults:
     handler: scrapeResults.main
     events:
-       - http:
-          path: scrapeResults
-          method: get
-          cors: true
+      - http:
+        path: scrapeResults
+        method: get
+        cors: true
 
   testResultsWorker:
     handler: testResultsWorker.main
     events:
-      - schedule: rate(2 hours)
-      - schedule: cron(0 12 * * ? *)
+      - schedule:
+        name: coronavirus-test-results-worker
+        description: 'Crawls the OK Health Dept website and retrieves coronavirus test results'
+        rate: rate(3 hours)
