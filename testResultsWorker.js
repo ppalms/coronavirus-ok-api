@@ -2,9 +2,10 @@ import * as scraper from './scrapeResults';
 import * as resultsByDate from './listResultsByDate';
 import * as persist from './persistResult';
 import moment from 'moment';
+import 'moment-timezone';
 
 export async function main() {
-  const today = moment().format('L'); // 03/26/2020
+  const today = moment().tz('America/Chicago').format('L'); // 03/26/2020
   const result = await resultsByDate.main({ pathParameters: JSON.stringify(today) });
   const existing = JSON.parse(result.body);
 
@@ -14,6 +15,7 @@ export async function main() {
   }
 
   const results = await scraper.main();
+  console.log(`Found ${results.length} new results for ${today}`);
 
   for (const result of results) {
     const event = { body: JSON.stringify(result) };
