@@ -2,7 +2,6 @@ import fetch from 'node-fetch';
 import cheerio from 'cheerio';
 import uuid from 'uuid';
 import moment from 'moment';
-import 'moment-timezone';
 
 export async function main() {
   const page = await fetch('https://coronavirus.health.ok.gov/');
@@ -17,7 +16,7 @@ export async function main() {
       resultId: uuid.v4(),
       resultType: testResult[0],
       count: testResult[1],
-      retrievedDate: moment().tz('America/Chicago').format()
+      retrievedDate: moment().utc().format()
     };
   });
 

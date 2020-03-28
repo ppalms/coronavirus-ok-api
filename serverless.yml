@@ -80,4 +80,4 @@ functions:
       - schedule:
           name: coronavirus-test-results-worker
           description: 'Crawls the OK Health Dept website and retrieves coronavirus test results'
-          rate: rate(3 hours)
+          rate: cron(0 17 * * ? *) # 5pm UTC/noon CST
