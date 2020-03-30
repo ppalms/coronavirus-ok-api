@@ -5,7 +5,7 @@ export async function main(event, _context, _callback) {
   const data = JSON.parse(event.body);
 
   const params = {
-    TableName: process.env.tableName,
+    TableName: process.env.statewideTableName,
     Item: {
       resultId: data.resultId,
       resultType: data.resultType,
