@@ -18,7 +18,6 @@ provider:
   # These environment variables are made available to our functions
   # under process.env.
   environment:
-    tableName: coronavirusTestResults
     statewideTableName: coronavirusStatewide
     casesByCountyTableName: coronavirusCasesByCounty
 
@@ -37,62 +36,23 @@ provider:
       Resource: "arn:aws:dynamodb:us-east-1:*:*"
 
 functions:
-  # Defines an HTTP API endpoint that calls the main function in persistResult.js
-  # - path: url path is /persistResult
-  # - method: POST request
-  # - cors: enabled CORS (Cross-Origin Resource Sharing) for browser cross
-  #     domain api call
-  # - authorizer: authenticate using the AWS IAM role
-  persistResult:
-    handler: persistResult.main
+  listCasesStatewide:
+    handler: listCasesStatewide.main
     events:
       - http:
-          path: persistResult
-          method: post
-          cors: true
-          # authorizer: aws_iam
-
-  persistCasesByCounty:
-    handler: persistCasesByCounty.main
-    events:
-      - http:
-          path: persistCasesByCounty
-          method: post
-          cors: true
-
-  listResults:
-    handler: listResults.main
-    events:
-      - http:
-          path: listResults
+          path: listCasesStatewide
           method: get
           cors: true
 
-  listResultsStatewide:
-    handler: listResultsStatewide.main
+  listCasesStatewideByDate:
+    handler: listCasesStatewide.byDate
     events:
       - http:
-          path: listResultsStatewide
+          path: listCasesStatewide/{date}
           method: get
           cors: true
 
-  listResultsByDate:
-    handler: listResultsByDate.main
-    events:
-      - http:
-          path: listResults/{date}
-          method: get
-          cors: true
-
-  listResultsStatewideByDate:
-    handler: listResultsStatewide.byDate
-    events:
-      - http:
-          path: listResultsStatewide/{date}
-          method: get
-          cors: true
-
-  scrapeResults:
+  scrapeCasesStatewide:
     handler: scrapeResults.main
     events:
       - http:
@@ -108,12 +68,12 @@ functions:
           method: get
           cors: true
 
-  testResultsWorker:
-    handler: testResultsWorker.main
+  casesStatewideWorker:
+    handler: casesStatewideWorker.main
     events:
       - schedule:
-          name: coronavirus-test-results-worker
-          description: 'Crawls the OK Health Dept website and retrieves coronavirus test results'
+          name: coronavirus-cases-statewide-worker
+          description: 'Crawls the OK Health Dept website and retrieves statewide coronavirus case information'
           rate: cron(0 18 * * ? *) # 6pm UTC/1pm CST
 
   casesByCountyWorker:
@@ -122,4 +82,4 @@ functions:
       - schedule:
           name: coronavirus-cases-by-county-worker
           description: 'Crawls the OK Health Dept website and retrieves data from the COVID-19 Cases by County table'
-          rate: cron(0 18 * * ? *) # 6pm UTC/1pm CST
+          rate: cron(0 18 * * ? *)
