@@ -84,6 +84,14 @@ functions:
           method: get
           cors: true
 
+  listResultsStatewideByDate:
+    handler: listResultsStatewide.byDate
+    events:
+      - http:
+          path: listResultsStatewide/{date}
+          method: get
+          cors: true
+
   scrapeResults:
     handler: scrapeResults.main
     events:
