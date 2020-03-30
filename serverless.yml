@@ -19,6 +19,7 @@ provider:
   # under process.env.
   environment:
     tableName: coronavirusTestResults
+    statewideTableName: coronavirusStatewide
     casesByCountyTableName: coronavirusCasesByCounty
 
   # 'iamRoleStatements' defines the permission policy for the Lambda function.
@@ -64,6 +65,14 @@ functions:
     events:
       - http:
           path: listResults
+          method: get
+          cors: true
+
+  listResultsStatewide:
+    handler: listResultsStatewide.main
+    events:
+      - http:
+          path: listResultsStatewide
           method: get
           cors: true
 
