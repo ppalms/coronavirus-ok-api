@@ -54,6 +54,8 @@ functions:
 
   scrapeCasesStatewide:
     handler: scrapeResults.main
+    environment:
+      NODE_TLS_REJECT_UNAUTHORIZED: 0
     events:
       - http:
           path: scrapeResults
@@ -62,6 +64,8 @@ functions:
 
   scrapeCasesByCounty:
     handler: scrapeCasesByCounty.main
+    environment:
+      NODE_TLS_REJECT_UNAUTHORIZED: 0
     events:
       - http:
           path: scrapeCasesByCounty
@@ -70,16 +74,20 @@ functions:
 
   casesStatewideWorker:
     handler: casesStatewideWorker.main
+    environment:
+      NODE_TLS_REJECT_UNAUTHORIZED: 0
     events:
       - schedule:
           name: coronavirus-cases-statewide-worker
-          description: 'Crawls the OK Health Dept website and retrieves statewide coronavirus case information'
+          description: "Crawls the OK Health Dept website and retrieves statewide coronavirus case information"
           rate: cron(0 18 * * ? *) # 6pm UTC/1pm CST
 
   casesByCountyWorker:
     handler: casesByCountyWorker.main
+    environment:
+      NODE_TLS_REJECT_UNAUTHORIZED: 0
     events:
       - schedule:
           name: coronavirus-cases-by-county-worker
-          description: 'Crawls the OK Health Dept website and retrieves data from the COVID-19 Cases by County table'
+          description: "Crawls the OK Health Dept website and retrieves data from the COVID-19 Cases by County table"
           rate: cron(0 18 * * ? *)

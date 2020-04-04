@@ -6,6 +6,7 @@ import moment from 'moment';
 export async function main() {
   const page = await fetch('https://coronavirus.health.ok.gov/');
   const $ = cheerio.load(await page.text());
+
   const table = $('table[summary="COVID-19 Oklahoma Test Results"]');
   const rows = table.children('tbody').children('tr');
 
