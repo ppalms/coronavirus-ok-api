@@ -14,8 +14,8 @@ export async function main() {
 
     return {
       county: testResult[0],
-      cases: parseInt(testResult[1]),
-      deaths: parseInt(testResult[2]),
+      cases: parseInt(testResult[1].replace(/,/g, '')),
+      deaths: parseInt(testResult[2].replace(/,/g, '')),
       retrievedDate: moment().utc().format()
     };
   });

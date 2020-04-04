@@ -15,7 +15,7 @@ export async function main() {
     return {
       retrievedDate: moment().utc().format(),
       resultType: testResult[0],
-      count: testResult[1]
+      count: parseInt(testResult[1].replace(/,/g, ''))
     };
   });
 
