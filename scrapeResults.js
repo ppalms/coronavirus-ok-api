@@ -1,6 +1,5 @@
 import fetch from 'node-fetch';
 import cheerio from 'cheerio';
-import uuid from 'uuid';
 import moment from 'moment';
 
 export async function main() {
@@ -14,10 +13,9 @@ export async function main() {
     let testResult = $(el).text().trim("'").split(/[\r\n]+/);
 
     return {
-      resultId: uuid.v4(),
+      retrievedDate: moment().utc().format(),
       resultType: testResult[0],
-      count: testResult[1],
-      retrievedDate: moment().utc().format()
+      count: testResult[1]
     };
   });
 

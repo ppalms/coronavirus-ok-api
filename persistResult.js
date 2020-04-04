@@ -7,10 +7,9 @@ export async function main(event, _context, _callback) {
   const params = {
     TableName: process.env.statewideTableName,
     Item: {
-      resultId: data.resultId,
+      retrievedDate: data.retrievedDate,
       resultType: data.resultType,
-      count: data.count,
-      retrievedDate: data.retrievedDate
+      count: data.count
     }
   };
 
